@@ -5,9 +5,6 @@
 const REPO = 'https://github.com/tomasTDP/to-skills-tdp';
 const SKILLS_PATH = `${REPO}/tree/main/skills`;
 
-const STAT_KEYS = ['power', 'craft', 'speed', 'rigor'];
-const STAT_LABELS = { power: 'POWER', craft: 'CRAFT', speed: 'SPEED', rigor: 'RIGOR' };
-
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -192,29 +189,11 @@ function renderDetail(hero) {
   $('[data-field="name"]', node).textContent = hero.name;
   $('[data-field="title"]', node).textContent = `"${hero.title}"`;
   $('[data-field="type"]', node).textContent = hero.type;
-  $('[data-field="combo"]', node).textContent = combo ? combo.name : '—';
   $('[data-field="description"]', node).textContent = hero.description;
   $('[data-field="howIUse"]', node).textContent = hero.howIUse;
 
   const installCmd = `cp -R skills/${hero.id} ~/.claude/skills/`;
   $('[data-field="installCmd"]', node).textContent = installCmd;
-
-  // stats
-  const statsRoot = $('[data-field="stats"]', node);
-  STAT_KEYS.forEach((key) => {
-    const li = document.createElement('li');
-    li.className = 'stat';
-    const value = hero.stats[key] ?? 0;
-    li.innerHTML = `
-      <span class="stat-label">${STAT_LABELS[key]}</span>
-      <span class="stat-bar"><span class="stat-bar-fill"></span></span>
-      <span class="stat-value">${value}</span>
-    `;
-    statsRoot.appendChild(li);
-    requestAnimationFrame(() => {
-      $('.stat-bar-fill', li).style.width = `${value}%`;
-    });
-  });
 
   // best used with — other heroes in the same combo
   const bestRoot = $('.best-with-chips', node);
