@@ -63,6 +63,20 @@ async function loadHeroes() {
 
 // ---------- rendering ----------
 
+function trySpritePng(spriteEl, heroId) {
+  // Attempt to load sprites/<id>.png. If it exists, replace the SVG.
+  // If not, leave the SVG placeholder in place.
+  const img = new Image();
+  img.src = `sprites/${heroId}.png`;
+  img.alt = '';
+  img.className = 'sprite-png';
+  img.addEventListener('load', () => {
+    spriteEl.innerHTML = '';
+    spriteEl.appendChild(img);
+  });
+  // on error: keep the SVG placeholder, no action needed
+}
+
 function buildGrid(heroes) {
   const grid = $('#grid');
   const tpl = $('#hero-card-tpl');
@@ -78,6 +92,7 @@ function buildGrid(heroes) {
     node.addEventListener('mouseenter', () => sfx.hover());
     node.addEventListener('focus', () => sfx.hover());
     node.style.animationDelay = `${idx * 50}ms`;
+    trySpritePng($('.sprite', node), hero.id);
     grid.appendChild(node);
   });
 }
@@ -137,6 +152,8 @@ function renderDetail(hero) {
   engage.addEventListener('click', () => sfx.engage());
 
   // portrait color is inherited from --hero-color; portrait visor/emblem already styled via CSS
+  trySpritePng($('.detail-portrait', node), hero.id);
+
   detail.innerHTML = '';
   detail.appendChild(node);
 }

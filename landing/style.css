@@ -274,6 +274,14 @@ body {
   filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.6));
 }
 
+.sprite-png {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.6));
+}
+
 .sprite-svg .visor, .portrait-svg .visor { fill: #fff; }
 .sprite-svg .emblem, .portrait-svg .emblem { fill: rgba(255, 255, 255, 0.9); }
 .sprite-svg .hand, .portrait-svg .hand { fill: #fff; }
