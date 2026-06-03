@@ -16,7 +16,6 @@
   --grid-line: rgba(255, 255, 255, 0.06);
   --card-bg: rgba(255, 255, 255, 0.03);
   --card-border: rgba(255, 255, 255, 0.15);
-  --card-glow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,7 +45,7 @@ body {
   position: relative;
 }
 
-/* CRT scanline overlay */
+/* CRT overlays */
 .scanlines {
   position: fixed; inset: 0;
   pointer-events: none;
@@ -134,7 +133,7 @@ body {
 
 .screen {
   padding: 32px 24px 24px;
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   position: relative;
@@ -170,51 +169,140 @@ body {
   text-align: center;
   color: var(--fg-2);
   letter-spacing: 0.1em;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+}
+
+/* ---------- team filters ---------- */
+
+.team-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.team-filter {
+  font: inherit;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  color: var(--fg-1);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: border-color 80ms, color 80ms, background 80ms;
+}
+
+.team-filter:hover {
+  border-color: var(--filter-color, var(--accent));
+  color: var(--filter-color, var(--accent));
+}
+
+.team-filter.is-active {
+  background: var(--filter-color, var(--accent));
+  color: var(--bg-0);
+  border-color: var(--filter-color, var(--accent));
 }
 
 /* ---------- layout ---------- */
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 32px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(380px, 1fr);
+  gap: 24px;
   align-items: start;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .layout { grid-template-columns: 1fr; }
-  .title { font-size: 18px; }
 }
 
-/* ---------- grid of heroes ---------- */
+/* ---------- combo rows ---------- */
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 16px;
+.combos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.combo-row {
+  --combo-color: var(--accent);
+  border: 2px solid var(--card-border);
+  padding: 12px;
   background: rgba(0, 0, 0, 0.3);
-  border: 3px solid var(--card-border);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 8px 0 rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.4);
+  transition: border-color 200ms, transform 200ms;
 }
 
-@media (max-width: 600px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
+.combo-row.is-dimmed {
+  opacity: 0.35;
+  filter: saturate(0.4);
 }
+
+.combo-row.is-highlighted {
+  border-color: var(--combo-color);
+  transform: translateY(-2px);
+}
+
+.combo-header {
+  display: grid;
+  grid-template-columns: 24px 1fr 24px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.combo-rule {
+  height: 4px;
+  background: var(--combo-color);
+  opacity: 0.6;
+  display: block;
+}
+
+.combo-header:nth-of-type(1) .combo-rule:first-child,
+.combo-header .combo-rule:last-child {
+  height: 4px;
+}
+
+.combo-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--combo-color);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.combo-label { color: var(--combo-color); }
+.combo-sep { color: var(--fg-2); margin: 0 6px; }
+.combo-tagline {
+  color: var(--fg-1);
+  font-size: 9px;
+  font-weight: normal;
+}
+
+.combo-heroes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+/* ---------- hero cards ---------- */
 
 .hero {
   --hero-color: #fff;
   background: var(--card-bg);
   border: 2px solid var(--card-border);
-  padding: 12px 8px 8px;
+  padding: 10px 6px 8px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font: inherit;
   color: var(--fg-1);
   position: relative;
@@ -262,7 +350,7 @@ body {
 }
 
 .sprite {
-  width: 64px; height: 75px;
+  width: 56px; height: 64px;
   display: flex;
   align-items: center; justify-content: center;
 }
@@ -272,6 +360,20 @@ body {
   color: var(--hero-color);
   fill: currentColor;
   filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.6));
+  overflow: visible;
+}
+
+.sprite-svg .outline, .portrait-svg .outline { fill: rgba(0, 0, 0, 0.65); }
+.sprite-svg .visor, .portrait-svg .visor { fill: rgba(255, 255, 255, 0.95); }
+.sprite-svg .emblem, .portrait-svg .emblem { fill: #fff; }
+.sprite-svg .hand, .portrait-svg .hand { fill: #fff; }
+.sprite-svg .boot, .portrait-svg .boot { fill: #1a1a1a; }
+.sprite-svg .cape, .portrait-svg .cape {
+  fill: color-mix(in srgb, currentColor 70%, #000);
+}
+.sprite-svg .belt, .portrait-svg .belt { fill: rgba(0, 0, 0, 0.55); }
+.sprite-svg .shadow {
+  fill: rgba(0, 0, 0, 0.4);
 }
 
 .sprite-png {
@@ -282,14 +384,9 @@ body {
   filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.6));
 }
 
-.sprite-svg .visor, .portrait-svg .visor { fill: #fff; }
-.sprite-svg .emblem, .portrait-svg .emblem { fill: rgba(255, 255, 255, 0.9); }
-.sprite-svg .hand, .portrait-svg .hand { fill: #fff; }
-.sprite-svg .boot, .portrait-svg .boot { fill: #1a1a1a; }
-
 .hero-name {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   text-align: center;
   color: var(--fg-1);
   letter-spacing: 0.04em;
@@ -305,12 +402,14 @@ body {
 
 .detail {
   --hero-color: var(--accent);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
   border: 3px solid var(--card-border);
-  padding: 24px;
-  position: relative;
+  padding: 20px;
+  position: sticky;
+  top: 16px;
   box-shadow: 0 8px 0 rgba(0, 0, 0, 0.6);
-  min-height: 480px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
 }
 
 .detail::before {
@@ -324,20 +423,21 @@ body {
 
 .detail-inner {
   display: grid;
-  grid-template-columns: 120px 1fr;
-  grid-template-rows: auto auto auto auto auto;
+  grid-template-columns: 100px 1fr;
+  gap: 14px 14px;
   grid-template-areas:
     'portrait meta'
     'stats stats'
     'desc desc'
     'how how'
-    'install install';
-  gap: 16px;
+    'bestwith bestwith'
+    'install install'
+    'actions actions';
 }
 
 .detail-portrait {
   grid-area: portrait;
-  width: 120px; height: 140px;
+  width: 100px; height: 120px;
   background: rgba(0, 0, 0, 0.6);
   border: 2px solid var(--hero-color);
   display: flex; align-items: center; justify-content: center;
@@ -375,12 +475,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .detail-name {
   font-family: 'Press Start 2P', monospace;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--hero-color);
   letter-spacing: 0.04em;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
@@ -389,43 +489,44 @@ body {
 
 .detail-title {
   font-family: 'VT323', monospace;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--fg-1);
   font-style: italic;
 }
 
-.detail-type {
+.detail-type, .detail-combo {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   color: var(--fg-2);
   letter-spacing: 0.08em;
 }
 
 .detail-type span { color: var(--accent); }
+.detail-combo span { color: var(--hero-color); }
 
 .stats {
   grid-area: stats;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px 16px;
-  padding: 12px;
+  gap: 6px 14px;
+  padding: 10px;
   background: rgba(0, 0, 0, 0.4);
   border: 1px dashed var(--card-border);
 }
 
 .stat {
   display: grid;
-  grid-template-columns: 70px 1fr 30px;
-  gap: 8px;
+  grid-template-columns: 60px 1fr 28px;
+  gap: 6px;
   align-items: center;
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   color: var(--fg-2);
 }
 
 .stat-bar {
-  height: 8px;
+  height: 7px;
   background: rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
@@ -443,22 +544,56 @@ body {
 .stat-value { color: var(--hero-color); text-align: right; }
 
 .detail-section { display: flex; flex-direction: column; gap: 6px; }
-.detail-section:nth-of-type(1) { grid-area: desc; }
-.detail-section:nth-of-type(2) { grid-area: how; }
-.detail-section:nth-of-type(3) { grid-area: install; }
+.detail-section.section-desc { grid-area: desc; }
+.detail-section.section-how { grid-area: how; }
+.detail-section.section-install { grid-area: install; }
+.detail-section.best-with { grid-area: bestwith; }
 
 .section-label {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   color: var(--accent);
   letter-spacing: 0.06em;
 }
 
 .detail-section p {
   font-family: 'VT323', monospace;
-  font-size: 18px;
+  font-size: 17px;
   color: var(--fg-1);
   line-height: 1.35;
+}
+
+.best-with-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.best-with-chip {
+  font: inherit;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--card-border);
+  color: var(--fg-1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.best-with-chip:hover {
+  border-color: var(--chip-color, var(--accent));
+  color: var(--chip-color, var(--accent));
+}
+
+.chip-dot {
+  width: 8px; height: 8px;
+  background: var(--chip-color, var(--accent));
+  display: inline-block;
 }
 
 .install-row {
@@ -481,11 +616,11 @@ body {
 
 .copy-btn {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   background: var(--card-bg);
   border: 2px solid var(--card-border);
   color: var(--fg-1);
-  padding: 0 14px;
+  padding: 0 12px;
   cursor: pointer;
   letter-spacing: 0.05em;
   transition: background 80ms, color 80ms, border-color 80ms;
@@ -495,7 +630,7 @@ body {
 .copy-btn.is-copied { background: var(--accent); color: var(--bg-0); border-color: var(--accent); }
 
 .detail-actions {
-  grid-column: 1 / -1;
+  grid-area: actions;
   display: flex;
   justify-content: flex-end;
   margin-top: 4px;
@@ -503,10 +638,10 @@ body {
 
 .engage-btn {
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
+  font-size: 11px;
   background: var(--hero-color);
   color: var(--bg-0);
-  padding: 14px 24px;
+  padding: 12px 22px;
   border: none;
   cursor: pointer;
   letter-spacing: 0.1em;
@@ -530,6 +665,126 @@ body {
   box-shadow:
     0 0 0 rgba(0, 0, 0, 0),
     inset 0 -3px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- recipes ---------- */
+
+.recipes {
+  margin-top: 48px;
+}
+
+.section-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 18px;
+  color: var(--fg-0);
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 0 var(--accent-2);
+}
+
+.section-title .bracket { color: var(--accent); }
+.section-title .section-sub {
+  display: block;
+  font-size: 9px;
+  color: var(--fg-2);
+  margin-top: 8px;
+  letter-spacing: 0.08em;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.recipe {
+  --recipe-color: var(--accent);
+  background: rgba(0, 0, 0, 0.45);
+  border: 2px solid var(--card-border);
+  border-top: 4px solid var(--recipe-color);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.recipe-head { display: flex; flex-direction: column; gap: 6px; }
+
+.recipe-combo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--recipe-color);
+  letter-spacing: 0.08em;
+}
+
+.recipe-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: var(--fg-0);
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.recipe-when {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--fg-1);
+  line-height: 1.3;
+}
+
+.recipe-when-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--fg-2);
+  letter-spacing: 0.08em;
+  margin-right: 6px;
+}
+
+.recipe-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+}
+
+.recipe-step {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  align-items: start;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--card-border);
+}
+
+.recipe-step-num {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--recipe-color);
+  text-align: center;
+}
+
+.recipe-step-hero {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--step-hero-color, var(--accent));
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.recipe-step-hero:hover { text-decoration: underline; }
+
+.recipe-step-do {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--fg-1);
+  line-height: 1.3;
 }
 
 /* ---------- toast ---------- */
@@ -561,10 +816,13 @@ body {
   .topbar, .bottombar { font-size: 8px; padding: 10px 14px; }
   .footer-center { display: none; }
   .title { font-size: 14px; }
+  .section-title { font-size: 14px; }
   .detail-inner {
     grid-template-columns: 80px 1fr;
   }
   .detail-portrait { width: 80px; height: 100px; }
-  .detail-name { font-size: 12px; }
+  .detail-name { font-size: 11px; }
   .stats { grid-template-columns: 1fr; }
+  .recipes-grid { grid-template-columns: 1fr; }
+  .detail { position: static; max-height: none; }
 }

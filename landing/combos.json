@@ -1,0 +1,84 @@
+[
+  {
+    "id": "figma-bridge",
+    "name": "FIGMA BRIDGE",
+    "tagline": "Code <> Figma in both directions",
+    "color": "#00ddff",
+    "heroIds": ["figma-use", "figma-generate-design"],
+    "flow": ["figma-use", "figma-generate-design"],
+    "recipe": {
+      "title": "Push an app page into Figma",
+      "steps": [
+        { "heroId": "figma-use", "do": "Load as prereq before any Figma MCP call" },
+        { "heroId": "figma-generate-design", "do": "Translate the code page into a Figma frame using your design system" }
+      ],
+      "useWhen": "You already built the page in code and want a Figma version without recreating it by hand."
+    }
+  },
+  {
+    "id": "build-review-a11y",
+    "name": "BUILD / REVIEW / A11Y",
+    "tagline": "Ship UI with taste, UX, and accessibility",
+    "color": "#ff00aa",
+    "heroIds": ["frontend-design", "web-design-guidelines", "accessibility"],
+    "flow": ["frontend-design", "web-design-guidelines", "accessibility"],
+    "recipe": {
+      "title": "Build a new page, end to end",
+      "steps": [
+        { "heroId": "frontend-design", "do": "Build the UI with taste — avoid the generic AI look" },
+        { "heroId": "web-design-guidelines", "do": "Audit UX, typography, focus states, touch targets" },
+        { "heroId": "accessibility", "do": "Audit WCAG 2.2 compliance before shipping" }
+      ],
+      "useWhen": "Shipping any user-facing page or component."
+    }
+  },
+  {
+    "id": "decisions-ai",
+    "name": "DECISIONS + AI PROMPTS",
+    "tagline": "Behavioral science + LLM craft",
+    "color": "#ff7700",
+    "heroIds": ["marketing-psychology", "prompt-engineer"],
+    "flow": ["marketing-psychology", "prompt-engineer"],
+    "recipe": {
+      "title": "Write copy + prompts that actually work",
+      "steps": [
+        { "heroId": "marketing-psychology", "do": "Anchor copy / pricing / CTAs in real behavioral principles" },
+        { "heroId": "prompt-engineer", "do": "Refactor the AI-powered features behind that copy into structured, evaluated prompts" }
+      ],
+      "useWhen": "Building or rewriting landing pages, pricing pages, onboarding flows, or AI features."
+    }
+  },
+  {
+    "id": "ds-bootstrap",
+    "name": "DS BOOTSTRAP",
+    "tagline": "Tokens from any URL",
+    "color": "#ffdd00",
+    "heroIds": ["extract-design-system"],
+    "flow": ["extract-design-system"],
+    "recipe": {
+      "title": "Start a project with real tokens, not blank canvas",
+      "steps": [
+        { "heroId": "extract-design-system", "do": "Point it at a reference site — your own, a competitor, or one you admire — to extract color, typography, and spacing tokens" }
+      ],
+      "useWhen": "Starting a new project or rebrand."
+    }
+  },
+  {
+    "id": "grow-toolkit",
+    "name": "GROW THE TOOLKIT",
+    "tagline": "Find and create more skills",
+    "color": "#ff3344",
+    "heroIds": ["find-skills", "create-skill", "skill-creator", "writing-skills"],
+    "flow": ["find-skills", "create-skill"],
+    "recipe": {
+      "title": "Don't reinvent — search first, then forge",
+      "steps": [
+        { "heroId": "find-skills", "do": "Check if a skill already exists for what you need" },
+        { "heroId": "create-skill", "do": "If you're on Cursor: package your workflow as a SKILL.md" },
+        { "heroId": "skill-creator", "do": "If you're on Codex CLI: same idea, with scaffolding scripts" },
+        { "heroId": "writing-skills", "do": "If you're on Claude Code or sharing the skill: most thorough variant, includes testing and verification" }
+      ],
+      "useWhen": "You catch yourself repeating the same workflow more than twice."
+    }
+  }
+]

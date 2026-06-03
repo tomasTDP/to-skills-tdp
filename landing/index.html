@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>TO-SKILLS-TDP // SELECT YOUR SKILL</title>
-<meta name="description" content="12 agent skills for design and product teams. Pick a hero." />
+<meta name="description" content="12 agent skills for design and product teams, organized in 5 combos." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
@@ -26,10 +26,14 @@
     SELECT YOUR SKILL
     <span class="title-bracket">&gt;&gt;</span>
   </h1>
-  <p class="subtitle">12 heroes. 5 powers. 1 design / product team.</p>
+  <p class="subtitle">12 heroes &nbsp;//&nbsp; 5 combos &nbsp;//&nbsp; 1 design/product team</p>
+
+  <nav class="team-filters" id="teamFilters" aria-label="Combo filters">
+    <!-- populated by main.js -->
+  </nav>
 
   <div class="layout">
-    <section class="grid" id="grid" aria-label="Hero grid">
+    <section class="combos" id="combos" aria-label="Heroes grouped by combo">
       <!-- populated by main.js -->
     </section>
 
@@ -37,6 +41,16 @@
       <!-- populated by main.js -->
     </aside>
   </div>
+
+  <section class="recipes" id="recipes" aria-label="Recipes">
+    <h2 class="section-title">
+      <span class="bracket">[</span> RECIPES <span class="bracket">]</span>
+      <span class="section-sub">common usage flows</span>
+    </h2>
+    <div class="recipes-grid" id="recipesGrid">
+      <!-- populated by main.js -->
+    </div>
+  </section>
 </main>
 
 <footer class="bottombar">
@@ -46,7 +60,7 @@
     </button>
   </div>
   <div class="footer-center marquee">
-    <span>&lt;&lt; PRESS A HERO TO LEARN ITS POWER &nbsp; • &nbsp; CLICK ENGAGE TO GET THE SKILL &nbsp; • &nbsp; STAR THE REPO ON GITHUB &gt;&gt;</span>
+    <span>&lt;&lt; PRESS A HERO TO LEARN ITS POWER &nbsp; • &nbsp; STACK COMBOS FOR FULL POWER &nbsp; • &nbsp; STAR THE REPO ON GITHUB &gt;&gt;</span>
   </div>
   <div class="footer-right">
     <a class="repo-link" href="https://github.com/tomasTDP/to-skills-tdp" target="_blank" rel="noopener">
@@ -55,32 +69,65 @@
   </div>
 </footer>
 
+<template id="combo-row-tpl">
+  <section class="combo-row" data-combo>
+    <header class="combo-header">
+      <span class="combo-rule"></span>
+      <h2 class="combo-name">
+        <span class="combo-label" data-field="name"></span>
+        <span class="combo-sep">//</span>
+        <span class="combo-tagline" data-field="tagline"></span>
+      </h2>
+      <span class="combo-rule"></span>
+    </header>
+    <div class="combo-heroes" data-field="heroes"></div>
+  </section>
+</template>
+
 <template id="hero-card-tpl">
   <button class="hero" type="button">
     <div class="sprite" aria-hidden="true">
-      <svg viewBox="0 0 12 14" shape-rendering="crispEdges" class="sprite-svg">
-        <!-- helmet -->
-        <rect x="4" y="1" width="4" height="3" />
-        <rect x="3" y="2" width="1" height="2" />
-        <rect x="8" y="2" width="1" height="2" />
+      <svg viewBox="0 0 16 18" shape-rendering="crispEdges" class="sprite-svg">
+        <!-- helmet outline -->
+        <rect x="5" y="0" width="6" height="1" class="outline"/>
+        <rect x="4" y="1" width="1" height="3" class="outline"/>
+        <rect x="11" y="1" width="1" height="3" class="outline"/>
+        <rect x="4" y="4" width="8" height="1" class="outline"/>
+        <!-- helmet fill -->
+        <rect x="5" y="1" width="6" height="3"/>
         <!-- visor -->
-        <rect x="5" y="2" width="2" height="1" class="visor" />
-        <!-- body -->
-        <rect x="3" y="4" width="6" height="4" />
-        <!-- chest emblem -->
-        <rect x="5" y="5" width="2" height="2" class="emblem" />
+        <rect x="5" y="2" width="6" height="1" class="visor"/>
+        <!-- crest / antenna -->
+        <rect x="7" y="-1" width="2" height="1"/>
+        <rect x="7" y="0" width="2" height="1" class="emblem"/>
+        <!-- shoulders -->
+        <rect x="3" y="5" width="2" height="1"/>
+        <rect x="11" y="5" width="2" height="1"/>
+        <!-- body (torso) -->
+        <rect x="4" y="5" width="8" height="5"/>
+        <!-- chest emblem (diamond) -->
+        <rect x="7" y="6" width="2" height="1" class="emblem"/>
+        <rect x="6" y="7" width="4" height="1" class="emblem"/>
+        <rect x="7" y="8" width="2" height="1" class="emblem"/>
         <!-- arms -->
-        <rect x="2" y="4" width="1" height="3" />
-        <rect x="9" y="4" width="1" height="3" />
-        <!-- hands -->
-        <rect x="2" y="7" width="1" height="1" class="hand" />
-        <rect x="9" y="7" width="1" height="1" class="hand" />
+        <rect x="2" y="6" width="2" height="4"/>
+        <rect x="12" y="6" width="2" height="4"/>
+        <!-- gauntlets -->
+        <rect x="2" y="9" width="2" height="1" class="hand"/>
+        <rect x="12" y="9" width="2" height="1" class="hand"/>
+        <!-- cape behind (sides) -->
+        <rect x="3" y="10" width="1" height="4" class="cape"/>
+        <rect x="12" y="10" width="1" height="4" class="cape"/>
+        <!-- belt -->
+        <rect x="4" y="10" width="8" height="1" class="belt"/>
         <!-- legs -->
-        <rect x="4" y="8" width="2" height="4" />
-        <rect x="6" y="8" width="2" height="4" />
+        <rect x="5" y="11" width="2" height="5"/>
+        <rect x="9" y="11" width="2" height="5"/>
         <!-- boots -->
-        <rect x="4" y="12" width="2" height="1" class="boot" />
-        <rect x="6" y="12" width="2" height="1" class="boot" />
+        <rect x="4" y="15" width="3" height="2" class="boot"/>
+        <rect x="9" y="15" width="3" height="2" class="boot"/>
+        <!-- ground shadow -->
+        <rect x="3" y="17" width="10" height="1" class="shadow"/>
       </svg>
     </div>
     <span class="hero-name"></span>
@@ -90,21 +137,31 @@
 <template id="detail-tpl">
   <div class="detail-inner">
     <div class="detail-portrait">
-      <svg viewBox="0 0 12 14" shape-rendering="crispEdges" class="portrait-svg">
-        <rect x="4" y="1" width="4" height="3" />
-        <rect x="3" y="2" width="1" height="2" />
-        <rect x="8" y="2" width="1" height="2" />
-        <rect x="5" y="2" width="2" height="1" class="visor" />
-        <rect x="3" y="4" width="6" height="4" />
-        <rect x="5" y="5" width="2" height="2" class="emblem" />
-        <rect x="2" y="4" width="1" height="3" />
-        <rect x="9" y="4" width="1" height="3" />
-        <rect x="2" y="7" width="1" height="1" class="hand" />
-        <rect x="9" y="7" width="1" height="1" class="hand" />
-        <rect x="4" y="8" width="2" height="4" />
-        <rect x="6" y="8" width="2" height="4" />
-        <rect x="4" y="12" width="2" height="1" class="boot" />
-        <rect x="6" y="12" width="2" height="1" class="boot" />
+      <svg viewBox="0 0 16 18" shape-rendering="crispEdges" class="portrait-svg">
+        <rect x="5" y="0" width="6" height="1" class="outline"/>
+        <rect x="4" y="1" width="1" height="3" class="outline"/>
+        <rect x="11" y="1" width="1" height="3" class="outline"/>
+        <rect x="4" y="4" width="8" height="1" class="outline"/>
+        <rect x="5" y="1" width="6" height="3"/>
+        <rect x="5" y="2" width="6" height="1" class="visor"/>
+        <rect x="7" y="0" width="2" height="1" class="emblem"/>
+        <rect x="3" y="5" width="2" height="1"/>
+        <rect x="11" y="5" width="2" height="1"/>
+        <rect x="4" y="5" width="8" height="5"/>
+        <rect x="7" y="6" width="2" height="1" class="emblem"/>
+        <rect x="6" y="7" width="4" height="1" class="emblem"/>
+        <rect x="7" y="8" width="2" height="1" class="emblem"/>
+        <rect x="2" y="6" width="2" height="4"/>
+        <rect x="12" y="6" width="2" height="4"/>
+        <rect x="2" y="9" width="2" height="1" class="hand"/>
+        <rect x="12" y="9" width="2" height="1" class="hand"/>
+        <rect x="3" y="10" width="1" height="4" class="cape"/>
+        <rect x="12" y="10" width="1" height="4" class="cape"/>
+        <rect x="4" y="10" width="8" height="1" class="belt"/>
+        <rect x="5" y="11" width="2" height="5"/>
+        <rect x="9" y="11" width="2" height="5"/>
+        <rect x="4" y="15" width="3" height="2" class="boot"/>
+        <rect x="9" y="15" width="3" height="2" class="boot"/>
       </svg>
     </div>
 
@@ -112,21 +169,27 @@
       <div class="detail-name" data-field="name"></div>
       <div class="detail-title" data-field="title"></div>
       <div class="detail-type">TYPE: <span data-field="type"></span></div>
+      <div class="detail-combo">COMBO: <span data-field="combo"></span></div>
     </div>
 
     <ul class="stats" data-field="stats"></ul>
 
-    <div class="detail-section">
+    <div class="detail-section section-desc">
       <div class="section-label">// DESCRIPTION</div>
       <p data-field="description"></p>
     </div>
 
-    <div class="detail-section">
+    <div class="detail-section section-how">
       <div class="section-label">// HOW I USE IT</div>
       <p data-field="howIUse"></p>
     </div>
 
-    <div class="detail-section">
+    <div class="detail-section best-with" data-field="bestWith">
+      <div class="section-label">// BEST USED WITH</div>
+      <div class="best-with-chips"></div>
+    </div>
+
+    <div class="detail-section section-install">
       <div class="section-label">// INSTALL</div>
       <div class="install-row">
         <code data-field="installCmd"></code>
@@ -138,6 +201,17 @@
       <a class="engage-btn" data-action="engage" target="_blank" rel="noopener">[ ENGAGE &gt; ]</a>
     </div>
   </div>
+</template>
+
+<template id="recipe-card-tpl">
+  <article class="recipe">
+    <header class="recipe-head">
+      <span class="recipe-combo" data-field="combo"></span>
+      <h3 class="recipe-title" data-field="title"></h3>
+      <p class="recipe-when"><span class="recipe-when-label">USE WHEN:</span> <span data-field="useWhen"></span></p>
+    </header>
+    <ol class="recipe-steps" data-field="steps"></ol>
+  </article>
 </template>
 
 <script src="main.js"></script>
