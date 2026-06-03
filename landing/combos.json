@@ -18,16 +18,17 @@
   {
     "id": "build-review-a11y",
     "name": "BUILD / REVIEW / A11Y",
-    "tagline": "Ship UI with taste, UX, and accessibility",
+    "tagline": "Ship UI with taste, UX, accessibility, and tight prompts",
     "color": "#ff00aa",
-    "heroIds": ["frontend-design", "web-design-guidelines", "accessibility"],
+    "heroIds": ["frontend-design", "web-design-guidelines", "accessibility", "caveman"],
     "flow": ["frontend-design", "web-design-guidelines", "accessibility"],
     "recipe": {
       "title": "Build a new page, end to end",
       "steps": [
         { "heroId": "frontend-design", "do": "Build the UI with taste — avoid the generic AI look" },
         { "heroId": "web-design-guidelines", "do": "Audit UX, typography, focus states, touch targets" },
-        { "heroId": "accessibility", "do": "Audit WCAG 2.2 compliance before shipping" }
+        { "heroId": "accessibility", "do": "Audit WCAG 2.2 compliance before shipping" },
+        { "heroId": "caveman", "do": "Turn on while iterating to slash token usage in dense back-and-forth" }
       ],
       "useWhen": "Shipping any user-facing page or component."
     }
@@ -51,16 +52,17 @@
   {
     "id": "design-system",
     "name": "DESIGN SYSTEM",
-    "tagline": "Tokens from any URL",
+    "tagline": "Extract, annotate, and make a DS AI-consumable",
     "color": "#ffdd00",
-    "heroIds": ["extract-design-system"],
-    "flow": ["extract-design-system"],
+    "heroIds": ["extract-design-system", "ai-component-metadata"],
+    "flow": ["extract-design-system", "ai-component-metadata"],
     "recipe": {
-      "title": "Start a project with real tokens, not blank canvas",
+      "title": "Start a project with real tokens, then make components AI-ready",
       "steps": [
-        { "heroId": "extract-design-system", "do": "Point it at a reference site — your own, a competitor, or one you admire — to extract color, typography, and spacing tokens" }
+        { "heroId": "extract-design-system", "do": "Point it at a reference site — your own, a competitor, or one you admire — to extract color, typography, and spacing tokens" },
+        { "heroId": "ai-component-metadata", "do": "Generate AI-consumable metadata for each component so an agent knows when and how to use it" }
       ],
-      "useWhen": "Starting a new project or rebrand."
+      "useWhen": "Starting a new project, rebranding, or making an existing DS usable by AI agents."
     }
   },
   {

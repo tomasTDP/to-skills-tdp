@@ -118,5 +118,25 @@
     "stats": { "power": 90, "craft": 95, "speed": 75, "rigor": 95 },
     "description": "Creates, edits, and verifies skills before deployment. Best practices, examples, graph conventions, subagent-based testing.",
     "howIUse": "Most thorough of the three forger variants. I use it when the skill I'm building will be shared with others (vs. personal one-off) — includes testing and verification steps the others skip."
+  },
+  {
+    "id": "caveman",
+    "name": "CAVEMAN",
+    "title": "the token slasher",
+    "type": "OPTIMIZER",
+    "color": "#ffffff",
+    "stats": { "power": 85, "craft": 78, "speed": 99, "rigor": 70 },
+    "description": "Ultra-compressed communication mode. Cuts token usage ~75% by speaking like caveman while keeping technical accuracy. Levels: lite, full, ultra.",
+    "howIUse": "I turn it on when I want shorter, denser responses — saves tokens and reads faster. Best for iterative work where I don't need polished prose. Switch with /caveman or 'caveman mode'."
+  },
+  {
+    "id": "ai-component-metadata",
+    "name": "AI-COMPONENTS",
+    "title": "the annotator",
+    "type": "ANNOTATOR",
+    "color": "#ffffff",
+    "stats": { "power": 80, "craft": 92, "speed": 70, "rigor": 90 },
+    "description": "Generates AI-ready metadata for design system components. Analyzes structure and produces structured metadata so AI knows when and how to use each component correctly.",
+    "howIUse": "When maintaining a design system that I want AI to consume intelligently. I run it on a component file and get back metadata that tells the AI when/where to use that component — critical for AI-driven UI generation against a real DS."
   }
 ]

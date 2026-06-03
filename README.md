@@ -1,6 +1,6 @@
 # to-skills-tdp
 
-A curated bundle of 12 agent skills for design and product teams.
+A curated bundle of 14 agent skills for design and product teams.
 
 Most "skill collections" are kitchen-sink dumps. This one is the opposite: a small, opinionated set picked for the way a design / product team actually works — going from idea to interface, reviewing what's built, making decisions backed by behavioral science, bootstrapping design systems, and growing the toolkit on their own.
 
@@ -17,9 +17,9 @@ The 12 skills are organized into 5 buckets. Each bucket solves one problem in th
 | # | Bucket | Skills |
 |---|---|---|
 | 1 | **Figma ↔ code bridge** | `figma-generate-design`, `figma-use` |
-| 2 | **Build, review, a11y** | `frontend-design`, `web-design-guidelines`, `accessibility` |
+| 2 | **Build, review, a11y** | `frontend-design`, `web-design-guidelines`, `accessibility`, `caveman` |
 | 3 | **Decisions + AI prompts** | `marketing-psychology`, `prompt-engineer` |
-| 4 | **Design system** | `extract-design-system` |
+| 4 | **Design system** | `extract-design-system`, `ai-component-metadata` |
 | 5 | **Grow the toolkit** | `find-skills`, `create-skill`, `skill-creator`, `writing-skills` |
 
 ---
@@ -79,6 +79,10 @@ ln -s "$PWD/skills/<skill-name>" ~/.claude/skills/<skill-name>
 **What it does** — Audits and improves web accessibility following WCAG 2.2. Use for a11y audits, WCAG compliance, screen reader support, keyboard navigation.
 **How I use it** — Before shipping anything user-facing I run an a11y pass. Pairs well with `web-design-guidelines` — that one catches design issues, this one catches compliance issues. Two different lenses on the same code.
 
+#### `caveman`
+**What it does** — Ultra-compressed communication mode. Cuts token usage ~75% by speaking like caveman while keeping technical accuracy. Supports intensity levels: lite, full, ultra.
+**How I use it** — I turn it on while iterating to slash token usage in dense back-and-forth. Best for repetitive work where polished prose isn't the point. Toggle with `/caveman` or "caveman mode".
+
 ---
 
 ### 3. Decisions + AI prompts
@@ -98,6 +102,10 @@ ln -s "$PWD/skills/<skill-name>" ~/.claude/skills/<skill-name>
 #### `extract-design-system`
 **What it does** — Extracts design primitives (color, typography, spacing) from a public website and generates starter token files.
 **How I use it** — When starting a new project I point it at a reference site (sometimes a competitor, sometimes a design I admire, sometimes my own existing site) and get back a starter set of tokens. Faster than building tokens from scratch, and gives me a real baseline to iterate from.
+
+#### `ai-component-metadata`
+**What it does** — Generates AI-ready metadata for design system components. Analyzes structure and produces structured metadata so an agent knows when and how to use each component correctly.
+**How I use it** — When maintaining a design system I want AI to consume intelligently. I run it on a component file and get back metadata that tells the AI when/where to use that component — critical for AI-driven UI generation against a real DS.
 
 ---
 
@@ -135,6 +143,8 @@ These skills come from several upstream sources. This repo bundles them for conv
 | `create-skill` | Cursor (`~/.cursor/skills-cursor/`) |
 | `skill-creator` | Codex (Apache 2.0) |
 | `writing-skills` | [`superpowers`](https://github.com/obra/superpowers) plugin |
+| `caveman` | [`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman) |
+| `ai-component-metadata` | [`cris-achiardi/claude-skills`](https://github.com/cris-achiardi/claude-skills) by Christian Achiardi |
 
 If you're the author of any of these and want changes to the attribution or want the skill removed, open an issue.
 
