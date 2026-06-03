@@ -4,22 +4,23 @@
    ============================================================ */
 
 :root {
-  --bg-0: #11091e;
-  --bg-1: #1a0d2e;
-  --bg-2: #251339;
+  /* black & white with grays — no chromatic accent */
+  --bg-0: #0a0a0a;
+  --bg-1: #131313;
+  --bg-2: #1c1c1c;
 
-  --fg-0: #f5f0ff;
-  --fg-1: #d8d0ee;
-  --fg-2: #9b8fc4;
-  --fg-3: #6f6493;
+  --fg-0: #ffffff;
+  --fg-1: #c8c8c8;
+  --fg-2: #808080;
+  --fg-3: #555555;
 
-  --accent: #ffd866;       /* muted amber, not pure NES yellow */
-  --accent-2: #ff8db5;     /* muted pink */
-  --danger: #ff5c6b;
+  --accent: #ffffff;          /* highlight = pure white */
+  --accent-soft: #c8c8c8;
+  --danger: #ffffff;
 
-  --card-bg: rgba(255, 255, 255, 0.025);
+  --card-bg: rgba(255, 255, 255, 0.02);
   --card-border: rgba(255, 255, 255, 0.10);
-  --card-border-strong: rgba(255, 255, 255, 0.22);
+  --card-border-strong: rgba(255, 255, 255, 0.40);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,10 +37,7 @@ html, body {
 }
 
 body {
-  background:
-    radial-gradient(ellipse at 50% -20%, rgba(255, 141, 181, 0.08), transparent 50%),
-    radial-gradient(ellipse at -10% 110%, rgba(0, 200, 240, 0.05), transparent 50%),
-    var(--bg-0);
+  background: var(--bg-0);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -145,14 +143,14 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .team-filter:hover {
-  border-color: var(--filter-color, var(--accent));
-  color: var(--filter-color, var(--accent));
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .team-filter.is-active {
-  background: var(--filter-color, var(--accent));
+  background: var(--accent);
   color: var(--bg-0);
-  border-color: var(--filter-color, var(--accent));
+  border-color: var(--accent);
 }
 
 /* ---------- layout ---------- */
@@ -177,16 +175,15 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .combo-row {
-  --combo-color: var(--accent);
   border: 1px solid var(--card-border);
-  border-left: 3px solid var(--combo-color);
+  border-left: 3px solid var(--accent);
   padding: 18px;
   background: var(--card-bg);
   transition: border-color 200ms, opacity 200ms;
 }
 
 .combo-row.is-dimmed { opacity: 0.35; }
-.combo-row.is-highlighted { border-color: var(--combo-color); }
+.combo-row.is-highlighted { border-color: var(--accent); }
 
 .combo-header {
   display: flex;
@@ -202,7 +199,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
   font-family: 'Press Start 2P', monospace;
   font-size: 13px;
   letter-spacing: 0.04em;
-  color: var(--combo-color);
+  color: var(--accent);
   line-height: 1.4;
 }
 
@@ -225,8 +222,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 /* ---------- hero cards ---------- */
 
 .hero {
-  --hero-color: #fff;
-  background: rgba(255, 255, 255, 0.015);
+  background: transparent;
   border: 1px solid var(--card-border);
   padding: 14px 8px 12px;
   cursor: pointer;
@@ -242,8 +238,8 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .hero:hover, .hero:focus-visible {
-  border-color: var(--hero-color);
-  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--fg-0);
+  background: rgba(255, 255, 255, 0.03);
   transform: translateY(-2px);
 }
 
@@ -251,10 +247,18 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
   animation: idle 600ms steps(2) infinite;
 }
 
+.hero:hover .sprite-svg, .hero:focus-visible .sprite-svg {
+  color: var(--fg-0);
+}
+
 .hero.is-selected {
-  border-color: var(--hero-color);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: inset 0 0 0 1px var(--hero-color);
+  border-color: var(--fg-0);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px var(--fg-0);
+}
+
+.hero.is-selected .sprite-svg {
+  color: var(--fg-0);
 }
 
 @keyframes idle {
@@ -270,11 +274,13 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 
 .sprite-svg, .portrait-svg {
   width: 100%; height: 100%;
-  color: var(--hero-color);
   fill: currentColor;
   filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.6));
   overflow: visible;
 }
+
+.sprite-svg { color: var(--fg-2); transition: color 120ms; }
+.portrait-svg { color: var(--fg-0); }
 
 .sprite-svg .outline, .portrait-svg .outline { fill: rgba(0, 0, 0, 0.55); }
 .sprite-svg .visor, .portrait-svg .visor { fill: rgba(255, 255, 255, 0.95); }
@@ -305,13 +311,12 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .hero:hover .hero-name, .hero.is-selected .hero-name {
-  color: var(--hero-color);
+  color: var(--accent);
 }
 
 /* ---------- detail panel ---------- */
 
 .detail {
-  --hero-color: var(--accent);
   background: var(--card-bg);
   border: 1px solid var(--card-border-strong);
   padding: 24px;
@@ -338,7 +343,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
   grid-area: portrait;
   width: 100px; height: 100px;
   background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--hero-color);
+  border: 1px solid var(--accent);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
@@ -364,7 +369,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 .detail-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 15px;
-  color: var(--hero-color);
+  color: var(--accent);
   letter-spacing: 0.03em;
   line-height: 1.4;
   word-break: break-word;
@@ -385,7 +390,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .detail-type span { color: var(--fg-1); }
-.detail-combo span { color: var(--hero-color); }
+.detail-combo span { color: var(--accent); }
 
 .detail-section { display: flex; flex-direction: column; gap: 6px; }
 .detail-section.section-desc { grid-area: desc; }
@@ -431,14 +436,14 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .best-with-chip:hover {
-  border-color: var(--chip-color, var(--accent));
-  color: var(--chip-color, var(--accent));
+  border-color: var(--accent);
+  color: var(--accent);
   text-decoration: none;
 }
 
 .chip-dot {
   width: 8px; height: 8px;
-  background: var(--chip-color, var(--accent));
+  background: var(--accent);
   display: inline-block;
 }
 
@@ -485,7 +490,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 .engage-btn {
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
-  background: var(--hero-color);
+  background: var(--accent);
   color: var(--bg-0);
   padding: 12px 22px;
   border: none;

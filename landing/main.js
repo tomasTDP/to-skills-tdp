@@ -106,7 +106,6 @@ function buildHeroCard(hero) {
   const tpl = $('#hero-card-tpl');
   const node = tpl.content.firstElementChild.cloneNode(true);
   node.dataset.id = hero.id;
-  node.style.setProperty('--hero-color', hero.color);
   $('.hero-name', node).textContent = hero.name;
   node.setAttribute('aria-label', `${hero.name}, ${hero.title}. Type ${hero.type}.`);
   node.addEventListener('click', () => selectHero(hero.id));
@@ -127,7 +126,6 @@ function buildCombos() {
   state.combos.forEach((combo) => {
     const node = tpl.content.firstElementChild.cloneNode(true);
     node.dataset.combo = combo.id;
-    node.style.setProperty('--combo-color', combo.color);
     $('[data-field="name"]', node).textContent = combo.name;
     $('[data-field="tagline"]', node).textContent = combo.tagline;
 
@@ -159,7 +157,6 @@ function buildFilters() {
     btn.className = 'team-filter';
     btn.textContent = combo.name;
     btn.dataset.filter = combo.id;
-    btn.style.setProperty('--filter-color', combo.color);
     btn.addEventListener('click', () => applyFilter(combo.id));
     root.appendChild(btn);
   });
@@ -190,8 +187,6 @@ function renderDetail(hero) {
   const tpl = $('#detail-tpl');
   const node = tpl.content.firstElementChild.cloneNode(true);
 
-  node.style.setProperty('--hero-color', hero.color);
-
   const combo = state.comboByHero.get(hero.id);
 
   $('[data-field="name"]', node).textContent = hero.name;
@@ -214,9 +209,8 @@ function renderDetail(hero) {
         if (!buddy) return;
         const chip = document.createElement('a');
         chip.className = 'best-with-chip';
-        chip.style.setProperty('--chip-color', buddy.color);
         chip.href = '#';
-        chip.innerHTML = `<span class="chip-dot" style="background:${buddy.color}"></span>${buddy.name}`;
+        chip.innerHTML = `<span class="chip-dot"></span>${buddy.name}`;
         chip.addEventListener('click', (e) => {
           e.preventDefault();
           selectHero(buddy.id);
