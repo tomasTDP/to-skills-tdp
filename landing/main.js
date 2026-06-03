@@ -54,6 +54,16 @@ const sfx = {
   engage: () => { beep({ freq: 440, dur: 0.08, slide: 400 }); setTimeout(() => beep({ freq: 880, dur: 0.1, slide: 200 }), 80); },
   copy:   () => beep({ freq: 1320, dur: 0.05, vol: 0.06 }),
   filter: () => beep({ freq: 760, dur: 0.05, type: 'triangle', vol: 0.04 }),
+  boot:   () => {
+    beep({ freq: 220, dur: 0.12, type: 'sawtooth', vol: 0.04 });
+    setTimeout(() => beep({ freq: 440, dur: 0.08 }), 120);
+    setTimeout(() => beep({ freq: 660, dur: 0.08 }), 220);
+    setTimeout(() => beep({ freq: 880, dur: 0.18 }), 320);
+  },
+  achievement: () => {
+    const notes = [523, 659, 784, 1047]; // C-E-G-C
+    notes.forEach((f, i) => setTimeout(() => beep({ freq: f, dur: 0.12, vol: 0.06 }), i * 100));
+  },
 };
 
 // ---------- data load ----------
@@ -123,16 +133,21 @@ function buildCombos() {
   const tpl = $('#combo-row-tpl');
   combosRoot.innerHTML = '';
 
-  state.combos.forEach((combo) => {
+  let globalIdx = 0;
+  state.combos.forEach((combo, comboIdx) => {
     const node = tpl.content.firstElementChild.cloneNode(true);
     node.dataset.combo = combo.id;
+    node.style.setProperty('--row-delay', comboIdx);
     $('[data-field="name"]', node).textContent = combo.name;
     $('[data-field="tagline"]', node).textContent = combo.tagline;
 
     const heroesRoot = $('[data-field="heroes"]', node);
     combo.heroIds.forEach((hid) => {
       const hero = state.heroById.get(hid);
-      if (hero) heroesRoot.appendChild(buildHeroCard(hero));
+      if (!hero) return;
+      const card = buildHeroCard(hero);
+      card.style.setProperty('--stagger-delay', globalIdx++);
+      heroesRoot.appendChild(card);
     });
 
     combosRoot.appendChild(node);
@@ -255,13 +270,23 @@ function selectHero(id) {
 
   $$('.hero').forEach((el) => el.classList.toggle('is-selected', el.dataset.id === id));
   renderDetail(hero);
+
+  // glitch transition
+  const detail = $('#detail');
+  if (detail) {
+    detail.classList.remove('is-glitching');
+    void detail.offsetWidth; // force reflow to restart animation
+    detail.classList.add('is-glitching');
+    setTimeout(() => detail.classList.remove('is-glitching'), 240);
+  }
+
   sfx.select();
 }
 
 // ---------- toast ----------
 
 let toastTimer = null;
-function showToast(msg) {
+function showToast(msg, opts = {}) {
   let toast = $('#toast');
   if (!toast) {
     toast = document.createElement('div');
@@ -270,9 +295,10 @@ function showToast(msg) {
     document.body.appendChild(toast);
   }
   toast.textContent = msg;
+  toast.classList.toggle('is-achievement', !!opts.achievement);
   toast.classList.add('is-visible');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1600);
+  toastTimer = setTimeout(() => toast.classList.remove('is-visible'), opts.achievement ? 2400 : 1600);
 }
 
 // ---------- sound toggle ----------
@@ -326,10 +352,134 @@ function wireKeyboard() {
   });
 }
 
+// ---------- custom cursor ----------
+
+function setupCursor() {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+  cursor.innerHTML = `
+    <svg viewBox="0 0 12 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="1" height="11" fill="#fff"/>
+      <rect x="2" y="2" width="1" height="9"  fill="#fff"/>
+      <rect x="3" y="3" width="1" height="7"  fill="#fff"/>
+      <rect x="4" y="4" width="1" height="5"  fill="#fff"/>
+      <rect x="5" y="5" width="1" height="3"  fill="#fff"/>
+      <rect x="6" y="6" width="1" height="1"  fill="#fff"/>
+    </svg>
+  `;
+  document.body.appendChild(cursor);
+
+  let raf = 0;
+  let x = -100, y = -100;
+  document.addEventListener('mousemove', (e) => {
+    x = e.clientX;
+    y = e.clientY;
+    if (!raf) {
+      raf = requestAnimationFrame(() => {
+        cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        raf = 0;
+      });
+    }
+  }, { passive: true });
+
+  document.addEventListener('mouseover', (e) => {
+    const isClickable = e.target.closest('button, a, [role="button"], .hero, .best-with-chip');
+    cursor.classList.toggle('is-pointer', !!isClickable);
+  });
+
+  // hide on touch
+  document.addEventListener('touchstart', () => {
+    cursor.style.display = 'none';
+  }, { once: true, passive: true });
+}
+
+// ---------- grain noise overlay ----------
+
+function setupGrain() {
+  const size = 96;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const img = ctx.createImageData(size, size);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const v = (Math.random() * 255) | 0;
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+    img.data[i + 3] = 12; // very subtle
+  }
+  ctx.putImageData(img, 0, 0);
+  document.documentElement.style.setProperty('--noise-tile', `url("${canvas.toDataURL()}")`);
+}
+
+// ---------- boot intro ----------
+
+function setupBoot() {
+  const boot = document.getElementById('boot');
+  if (!boot) return Promise.resolve();
+
+  // play a 4-note arpeggio with the boot
+  sfx.boot();
+
+  return new Promise((resolve) => {
+    let dismissed = false;
+    const dismiss = () => {
+      if (dismissed) return;
+      dismissed = true;
+      boot.classList.add('is-leaving');
+      document.body.classList.add('is-booted');
+      setTimeout(() => {
+        boot.remove();
+        resolve();
+      }, 720);
+    };
+    boot.addEventListener('click', dismiss);
+    const keyHandler = (e) => {
+      if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
+        dismiss();
+        document.removeEventListener('keydown', keyHandler);
+      }
+    };
+    document.addEventListener('keydown', keyHandler);
+    // auto-advance after the full sequence (~4.2s)
+    setTimeout(dismiss, 4200);
+  });
+}
+
+// ---------- konami code ----------
+
+const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+
+function setupKonami() {
+  let idx = 0;
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    const expected = KONAMI[idx];
+    if (key === (expected.length === 1 ? expected.toLowerCase() : expected)) {
+      idx++;
+      if (idx === KONAMI.length) {
+        idx = 0;
+        triggerArcadeMode();
+      }
+    } else {
+      idx = key === KONAMI[0] ? 1 : 0;
+    }
+  });
+}
+
+function triggerArcadeMode() {
+  const on = document.body.classList.toggle('is-arcade-mode');
+  showToast(on ? '// ARCADE MODE UNLOCKED' : '// ARCADE MODE OFF', { achievement: true });
+  if (on) sfx.achievement(); else sfx.copy();
+}
+
 // ---------- init ----------
 
 (async function init() {
   try {
+    setupCursor();
+    setupGrain();
+    setupKonami();
     const { heroes, combos } = await loadData();
     indexData(heroes, combos);
     buildFilters();
@@ -337,8 +487,9 @@ function wireKeyboard() {
     wireSoundToggle();
     wireKeyboard();
     selectHero(state.heroes[0].id);
+    await setupBoot();
   } catch (err) {
     console.error(err);
-    $('#detail').innerHTML = `<p style="color:#ff3344;padding:24px;font-family:'Press Start 2P',monospace;font-size:10px;">ERROR LOADING: ${err.message}</p>`;
+    $('#detail').innerHTML = `<p style="color:#fff;padding:24px;font-family:'Press Start 2P',monospace;font-size:10px;">ERROR LOADING: ${err.message}</p>`;
   }
 })();
