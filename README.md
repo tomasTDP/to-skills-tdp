@@ -6,6 +6,8 @@ Most "skill collections" are kitchen-sink dumps. This one is the opposite: a sma
 
 Works with Claude Code, Codex CLI, and Cursor.
 
+**🎮 Browse the heroes →** [to-skills-tdp.vercel.app](https://to-skills-tdp.vercel.app)
+
 ---
 
 ## The set, at a glance
