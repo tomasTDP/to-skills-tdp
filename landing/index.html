@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TO-SKILLS-TDP // SELECT YOUR SKILL</title>
+<meta name="description" content="12 agent skills for design and product teams. Pick a hero." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">TO-SKILLS-TDP</div>
+  <div class="coins"><span class="coin">●</span> CREDITS: <span id="credits">12</span></div>
+</header>
+
+<main class="screen">
+  <h1 class="title">
+    <span class="title-bracket">&lt;&lt;</span>
+    SELECT YOUR SKILL
+    <span class="title-bracket">&gt;&gt;</span>
+  </h1>
+  <p class="subtitle">12 heroes. 5 powers. 1 design / product team.</p>
+
+  <div class="layout">
+    <section class="grid" id="grid" aria-label="Hero grid">
+      <!-- populated by main.js -->
+    </section>
+
+    <aside class="detail" id="detail" aria-live="polite">
+      <!-- populated by main.js -->
+    </aside>
+  </div>
+</main>
+
+<footer class="bottombar">
+  <div class="footer-left">
+    <button class="sound-toggle" id="soundToggle" aria-pressed="true" title="Toggle 8-bit sound effects">
+      ♪ SOUND: <span id="soundState">ON</span>
+    </button>
+  </div>
+  <div class="footer-center marquee">
+    <span>&lt;&lt; PRESS A HERO TO LEARN ITS POWER &nbsp; • &nbsp; CLICK ENGAGE TO GET THE SKILL &nbsp; • &nbsp; STAR THE REPO ON GITHUB &gt;&gt;</span>
+  </div>
+  <div class="footer-right">
+    <a class="repo-link" href="https://github.com/tomasTDP/to-skills-tdp" target="_blank" rel="noopener">
+      [ GITHUB ]
+    </a>
+  </div>
+</footer>
+
+<template id="hero-card-tpl">
+  <button class="hero" type="button">
+    <div class="sprite" aria-hidden="true">
+      <svg viewBox="0 0 12 14" shape-rendering="crispEdges" class="sprite-svg">
+        <!-- helmet -->
+        <rect x="4" y="1" width="4" height="3" />
+        <rect x="3" y="2" width="1" height="2" />
+        <rect x="8" y="2" width="1" height="2" />
+        <!-- visor -->
+        <rect x="5" y="2" width="2" height="1" class="visor" />
+        <!-- body -->
+        <rect x="3" y="4" width="6" height="4" />
+        <!-- chest emblem -->
+        <rect x="5" y="5" width="2" height="2" class="emblem" />
+        <!-- arms -->
+        <rect x="2" y="4" width="1" height="3" />
+        <rect x="9" y="4" width="1" height="3" />
+        <!-- hands -->
+        <rect x="2" y="7" width="1" height="1" class="hand" />
+        <rect x="9" y="7" width="1" height="1" class="hand" />
+        <!-- legs -->
+        <rect x="4" y="8" width="2" height="4" />
+        <rect x="6" y="8" width="2" height="4" />
+        <!-- boots -->
+        <rect x="4" y="12" width="2" height="1" class="boot" />
+        <rect x="6" y="12" width="2" height="1" class="boot" />
+      </svg>
+    </div>
+    <span class="hero-name"></span>
+  </button>
+</template>
+
+<template id="detail-tpl">
+  <div class="detail-inner">
+    <div class="detail-portrait">
+      <svg viewBox="0 0 12 14" shape-rendering="crispEdges" class="portrait-svg">
+        <rect x="4" y="1" width="4" height="3" />
+        <rect x="3" y="2" width="1" height="2" />
+        <rect x="8" y="2" width="1" height="2" />
+        <rect x="5" y="2" width="2" height="1" class="visor" />
+        <rect x="3" y="4" width="6" height="4" />
+        <rect x="5" y="5" width="2" height="2" class="emblem" />
+        <rect x="2" y="4" width="1" height="3" />
+        <rect x="9" y="4" width="1" height="3" />
+        <rect x="2" y="7" width="1" height="1" class="hand" />
+        <rect x="9" y="7" width="1" height="1" class="hand" />
+        <rect x="4" y="8" width="2" height="4" />
+        <rect x="6" y="8" width="2" height="4" />
+        <rect x="4" y="12" width="2" height="1" class="boot" />
+        <rect x="6" y="12" width="2" height="1" class="boot" />
+      </svg>
+    </div>
+
+    <div class="detail-meta">
+      <div class="detail-name" data-field="name"></div>
+      <div class="detail-title" data-field="title"></div>
+      <div class="detail-type">TYPE: <span data-field="type"></span></div>
+    </div>
+
+    <ul class="stats" data-field="stats"></ul>
+
+    <div class="detail-section">
+      <div class="section-label">// DESCRIPTION</div>
+      <p data-field="description"></p>
+    </div>
+
+    <div class="detail-section">
+      <div class="section-label">// HOW I USE IT</div>
+      <p data-field="howIUse"></p>
+    </div>
+
+    <div class="detail-section">
+      <div class="section-label">// INSTALL</div>
+      <div class="install-row">
+        <code data-field="installCmd"></code>
+        <button class="copy-btn" type="button" data-action="copy" title="Copy install command">COPY</button>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <a class="engage-btn" data-action="engage" target="_blank" rel="noopener">[ ENGAGE &gt; ]</a>
+    </div>
+  </div>
+</template>
+
+<script src="main.js"></script>
+</body>
+</html>

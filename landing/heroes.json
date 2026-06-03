@@ -1,0 +1,122 @@
+[
+  {
+    "id": "figma-use",
+    "name": "FIGMA-USE",
+    "title": "the MCP wizard",
+    "type": "BRIDGE",
+    "color": "#00ddff",
+    "stats": { "power": 92, "craft": 88, "speed": 70, "rigor": 99 },
+    "description": "Mandatory prerequisite before any use_figma MCP call. Foundational context that prevents the most common write/read failures in Figma.",
+    "howIUse": "I don't invoke it directly — it loads automatically before Figma write operations. If I'm debugging weird Figma plugin behavior, the first thing I check is whether this skill loaded."
+  },
+  {
+    "id": "figma-generate-design",
+    "name": "FIGMA-GEN",
+    "title": "the portal opener",
+    "type": "BRIDGE",
+    "color": "#0077ff",
+    "stats": { "power": 95, "craft": 90, "speed": 85, "rigor": 75 },
+    "description": "Translates an app page, view, or multi-section layout from code into Figma. Triggers on 'push this to Figma', 'create in Figma from code', 'build a landing page in Figma'.",
+    "howIUse": "When I want a Figma version of something I've already built in code. I point the agent at the page and say 'push this to Figma' — it lays out the screen using my design system. Saves the round-trip of recreating a design that already exists."
+  },
+  {
+    "id": "frontend-design",
+    "name": "FRONTEND-DSGN",
+    "title": "the architect",
+    "type": "BUILDER",
+    "color": "#ff00aa",
+    "stats": { "power": 96, "craft": 99, "speed": 80, "rigor": 70 },
+    "description": "Creates distinctive, production-grade frontend interfaces with high design quality. Avoids the generic 'AI aesthetic' of identical sans-serif + flat color UI.",
+    "howIUse": "Whenever I ask Claude to build a UI from scratch I want this on, otherwise the output drifts into generic. Client demos, new product pages, anything where 'good taste' matters more than 'functional'."
+  },
+  {
+    "id": "web-design-guidelines",
+    "name": "WEB-GUIDELINES",
+    "title": "the inspector",
+    "type": "REVIEWER",
+    "color": "#aa00ff",
+    "stats": { "power": 78, "craft": 95, "speed": 75, "rigor": 92 },
+    "description": "Reviews UI code against Web Interface Guidelines — UX, accessibility, design conventions. A second-pass audit lens after you've built something.",
+    "howIUse": "After I've built something I run it on the page and ask for a structured audit. Catches things I miss when I'm deep in the implementation: touch target sizes, focus states, type hierarchy, common UX mistakes."
+  },
+  {
+    "id": "accessibility",
+    "name": "ACCESSIBILITY",
+    "title": "the guardian",
+    "type": "GUARDIAN",
+    "color": "#00ff88",
+    "stats": { "power": 80, "craft": 88, "speed": 70, "rigor": 99 },
+    "description": "Audits and improves web accessibility following WCAG 2.2. Use for a11y audits, compliance, screen reader support, keyboard navigation.",
+    "howIUse": "Before shipping anything user-facing I run an a11y pass. Pairs with web-design-guidelines — that catches design issues, this catches compliance issues. Two different lenses on the same code."
+  },
+  {
+    "id": "marketing-psychology",
+    "name": "MKT-PSYCH",
+    "title": "the persuader",
+    "type": "STRATEGIST",
+    "color": "#ff7700",
+    "stats": { "power": 88, "craft": 85, "speed": 92, "rigor": 75 },
+    "description": "Applies psychology, mental models, and behavioral science to marketing — anchoring, social proof, scarcity, loss aversion, framing, nudge.",
+    "howIUse": "When I write copy for landing pages, pricing, onboarding, or CTAs and want to ground the decision in a real principle instead of 'this feels right'. Sparring partner for goal + audience."
+  },
+  {
+    "id": "prompt-engineer",
+    "name": "PROMPT-ENG",
+    "title": "the whisperer",
+    "type": "ALCHEMIST",
+    "color": "#cc66ff",
+    "stats": { "power": 90, "craft": 92, "speed": 80, "rigor": 88 },
+    "description": "Writes, refactors, and evaluates LLM prompts. Templates, structured output schemas, evaluation rubrics, test suites.",
+    "howIUse": "Every AI feature has a prompt as config. I use this to refactor flaky prompts, convert ad-hoc prompts to structured (JSON / function calling), and write evals so I know if changes actually improved things."
+  },
+  {
+    "id": "extract-design-system",
+    "name": "EXTRACT-DS",
+    "title": "the scavenger",
+    "type": "EXTRACTOR",
+    "color": "#ffdd00",
+    "stats": { "power": 75, "craft": 82, "speed": 95, "rigor": 70 },
+    "description": "Extracts design primitives (color, type, spacing) from a public website and generates starter token files.",
+    "howIUse": "Starting a new project: I point it at a reference site (competitor, design I admire, my own existing site) and get back starter tokens. Faster than from scratch, and gives a real baseline to iterate from."
+  },
+  {
+    "id": "find-skills",
+    "name": "FIND-SKILLS",
+    "title": "the seeker",
+    "type": "SCOUT",
+    "color": "#88ff00",
+    "stats": { "power": 70, "craft": 75, "speed": 99, "rigor": 80 },
+    "description": "Discovers and installs agent skills when you ask 'is there a skill for X?' or 'how do I do Y?'. Surfaces things you didn't know existed.",
+    "howIUse": "Before writing a custom workflow, I check if a skill already exists. Stops me reinventing things and surfaces skills I didn't know about."
+  },
+  {
+    "id": "create-skill",
+    "name": "CREATE-SKILL",
+    "title": "the cursor forger",
+    "type": "FORGER",
+    "color": "#ff3344",
+    "stats": { "power": 80, "craft": 85, "speed": 88, "rigor": 78 },
+    "description": "Authors new Cursor Agent Skills. Use when writing a SKILL.md or asking how the Cursor skill format works.",
+    "howIUse": "When I'm in Cursor and notice I'm repeating the same workflow more than twice, I use this to package it as a skill."
+  },
+  {
+    "id": "skill-creator",
+    "name": "SKILL-CREATOR",
+    "title": "the codex forger",
+    "type": "FORGER",
+    "color": "#ff6633",
+    "stats": { "power": 82, "craft": 87, "speed": 85, "rigor": 82 },
+    "description": "Guides creation of effective Codex skills. Includes scaffolding scripts, assets, and references the Cursor variant doesn't have.",
+    "howIUse": "Same idea as create-skill but for Codex. Use this when working in Codex CLI and want the extra scaffolding utilities."
+  },
+  {
+    "id": "writing-skills",
+    "name": "WRITING-SKILLS",
+    "title": "the grand forger",
+    "type": "FORGER",
+    "color": "#ffaa00",
+    "stats": { "power": 90, "craft": 95, "speed": 75, "rigor": 95 },
+    "description": "Creates, edits, and verifies skills before deployment. Best practices, examples, graph conventions, subagent-based testing.",
+    "howIUse": "Most thorough of the three forger variants. I use it when the skill I'm building will be shared with others (vs. personal one-off) — includes testing and verification steps the others skip."
+  }
+]
