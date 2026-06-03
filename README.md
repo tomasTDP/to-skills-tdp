@@ -19,7 +19,7 @@ The 12 skills are organized into 5 buckets. Each bucket solves one problem in th
 | 1 | **Figma ↔ code bridge** | `figma-generate-design`, `figma-use` |
 | 2 | **Build, review, a11y** | `frontend-design`, `web-design-guidelines`, `accessibility` |
 | 3 | **Decisions + AI prompts** | `marketing-psychology`, `prompt-engineer` |
-| 4 | **Design system bootstrap** | `extract-design-system` |
+| 4 | **Design system** | `extract-design-system` |
 | 5 | **Grow the toolkit** | `find-skills`, `create-skill`, `skill-creator`, `writing-skills` |
 
 ---
@@ -93,7 +93,7 @@ ln -s "$PWD/skills/<skill-name>" ~/.claude/skills/<skill-name>
 
 ---
 
-### 4. Design system bootstrap
+### 4. Design system
 
 #### `extract-design-system`
 **What it does** — Extracts design primitives (color, typography, spacing) from a public website and generates starter token files.

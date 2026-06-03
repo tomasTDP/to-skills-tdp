@@ -49,8 +49,8 @@
     }
   },
   {
-    "id": "ds-bootstrap",
-    "name": "DS BOOTSTRAP",
+    "id": "design-system",
+    "name": "DESIGN SYSTEM",
     "tagline": "Tokens from any URL",
     "color": "#ffdd00",
     "heroIds": ["extract-design-system"],
