@@ -264,52 +264,6 @@ function selectHero(id) {
   sfx.select();
 }
 
-// ---------- recipes ----------
-
-function buildRecipes() {
-  const root = $('#recipesGrid');
-  const tpl = $('#recipe-card-tpl');
-  root.innerHTML = '';
-
-  state.combos.forEach((combo) => {
-    if (!combo.recipe) return;
-    const node = tpl.content.firstElementChild.cloneNode(true);
-    node.style.setProperty('--recipe-color', combo.color);
-    $('[data-field="combo"]', node).textContent = combo.name;
-    $('[data-field="title"]', node).textContent = combo.recipe.title;
-    $('[data-field="useWhen"]', node).textContent = combo.recipe.useWhen;
-
-    const stepsRoot = $('[data-field="steps"]', node);
-    combo.recipe.steps.forEach((step, idx) => {
-      const hero = state.heroById.get(step.heroId);
-      const li = document.createElement('li');
-      li.className = 'recipe-step';
-      const heroColor = hero ? hero.color : combo.color;
-      const heroLabel = hero ? hero.name : step.heroId.toUpperCase();
-      li.innerHTML = `
-        <span class="recipe-step-num">${idx + 1}</span>
-        <div>
-          <a href="#" class="recipe-step-hero" style="--step-hero-color:${heroColor}" data-hero="${step.heroId}">${heroLabel}</a>
-          <span class="recipe-step-do">${step.do}</span>
-        </div>
-      `;
-      stepsRoot.appendChild(li);
-    });
-
-    // wire hero links in this recipe
-    $$('.recipe-step-hero', node).forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        selectHero(link.dataset.hero);
-        const detail = $('#detail');
-        if (detail) detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    root.appendChild(node);
-  });
-}
-
 // ---------- toast ----------
 
 let toastTimer = null;
@@ -386,7 +340,6 @@ function wireKeyboard() {
     indexData(heroes, combos);
     buildFilters();
     buildCombos();
-    buildRecipes();
     wireSoundToggle();
     wireKeyboard();
     selectHero(state.heroes[0].id);
