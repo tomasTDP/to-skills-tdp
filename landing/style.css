@@ -263,7 +263,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 }
 
 .sprite {
-  width: 56px; height: 64px;
+  width: 56px; height: 56px;
   display: flex;
   align-items: center; justify-content: center;
 }
@@ -336,7 +336,7 @@ a:hover { color: var(--fg-0); text-decoration: underline; }
 
 .detail-portrait {
   grid-area: portrait;
-  width: 100px; height: 120px;
+  width: 100px; height: 100px;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid var(--hero-color);
   display: flex; align-items: center; justify-content: center;

@@ -95,6 +95,13 @@ function trySpritePng(spriteEl, heroId) {
 
 // ---------- hero card ----------
 
+function setIconHref(useEl, heroId) {
+  if (!useEl) return;
+  const href = `#icon-${heroId}`;
+  useEl.setAttribute('href', href);
+  useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', href);
+}
+
 function buildHeroCard(hero) {
   const tpl = $('#hero-card-tpl');
   const node = tpl.content.firstElementChild.cloneNode(true);
@@ -105,6 +112,7 @@ function buildHeroCard(hero) {
   node.addEventListener('click', () => selectHero(hero.id));
   node.addEventListener('mouseenter', () => sfx.hover());
   node.addEventListener('focus', () => sfx.hover());
+  setIconHref($('.sprite-use', node), hero.id);
   trySpritePng($('.sprite', node), hero.id);
   return node;
 }
@@ -239,6 +247,7 @@ function renderDetail(hero) {
   engage.href = `${SKILLS_PATH}/${hero.id}`;
   engage.addEventListener('click', () => sfx.engage());
 
+  setIconHref($('.portrait-use', node), hero.id);
   trySpritePng($('.detail-portrait', node), hero.id);
 
   detail.innerHTML = '';
