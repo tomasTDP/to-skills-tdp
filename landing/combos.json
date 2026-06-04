@@ -69,16 +69,15 @@
     "name": "SIDE QUESTS",
     "tagline": "Meta-skills and utilities that amplify the rest",
     "color": "#ff3344",
-    "heroIds": ["caveman", "find-skills", "create-skill", "skill-creator", "writing-skills"],
+    "heroIds": ["caveman", "find-skills", "create-skill", "writing-skills"],
     "flow": ["caveman", "find-skills", "create-skill"],
     "recipe": {
       "title": "Stay efficient and keep growing the toolkit",
       "steps": [
         { "heroId": "caveman", "do": "Flip on for iterative work — slashes token usage without losing accuracy" },
         { "heroId": "find-skills", "do": "Before building anything custom, check if a skill already exists" },
-        { "heroId": "create-skill", "do": "If you're on Cursor: package your workflow as a SKILL.md" },
-        { "heroId": "skill-creator", "do": "If you're on Codex CLI: same idea, with scaffolding scripts" },
-        { "heroId": "writing-skills", "do": "If you're on Claude Code or sharing the skill: most thorough variant, includes testing and verification" }
+        { "heroId": "create-skill", "do": "Package a repeated workflow as a SKILL.md (Cursor authoring)" },
+        { "heroId": "writing-skills", "do": "When the skill will be shared: most thorough variant — includes testing and verification" }
       ],
       "useWhen": "Any time, in parallel with the main flows."
     }

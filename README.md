@@ -1,6 +1,6 @@
 # to-skills-tdp
 
-A curated bundle of 14 agent skills for design and product teams.
+A curated bundle of 13 agent skills for design and product teams.
 
 Most "skill collections" are kitchen-sink dumps. This one is the opposite: a small, opinionated set picked for the way a design / product team actually works — going from idea to interface, reviewing what's built, making decisions backed by behavioral science, bootstrapping design systems, and growing the toolkit on their own.
 
@@ -20,7 +20,7 @@ The 12 skills are organized into 5 buckets. Each bucket solves one problem in th
 | 2 | **Build, review, a11y** | `frontend-design`, `web-design-guidelines`, `accessibility` |
 | 3 | **Decisions + AI prompts** | `marketing-psychology`, `prompt-engineer` |
 | 4 | **Design system** | `extract-design-system`, `ai-component-metadata` |
-| 5 | **Side quests** | `caveman`, `find-skills`, `create-skill`, `skill-creator`, `writing-skills` |
+| 5 | **Side quests** | `caveman`, `find-skills`, `create-skill`, `writing-skills` |
 
 ---
 
@@ -121,15 +121,11 @@ Meta-skills and utilities that amplify the rest. Run any time, in parallel with 
 **What it does** — Authors new Cursor Agent Skills. Use when writing a new SKILL.md or asking how the skill format works.
 **How I use it** — When I'm working in Cursor and notice myself repeating the same workflow more than twice, I use this to package it as a skill.
 
-#### `skill-creator` (Codex)
-**What it does** — Guides creation of effective Codex skills. Use when creating or updating a skill that extends Codex with specialized knowledge or workflows.
-**How I use it** — Same idea as `create-skill` but for Codex. Includes scaffolding scripts and assets the Cursor version doesn't have.
-
 #### `writing-skills` (Claude Code / superpowers)
 **What it does** — Creates, edits, and verifies skills before deployment. Includes best practices, examples, graph conventions, and subagent-based testing.
-**How I use it** — This is the most thorough of the three create-skill variants. I use it when the skill I'm building is going to be shared with others (vs. a personal one-off) because it includes the testing and verification steps the others skip.
+**How I use it** — The more thorough of the two skill-authoring variants. I use it when the skill I'm building is going to be shared with others (vs. a personal one-off) because it includes the testing and verification steps that `create-skill` skips.
 
-> **Which one should you use?** If you're on Cursor, use `create-skill`. If you're on Codex, use `skill-creator`. If you're on Claude Code, use `writing-skills`. They overlap in spirit but each is tuned to its own tool.
+> **Which one should you use?** If you're on Cursor, use `create-skill`. If you're on Claude Code, use `writing-skills`. They overlap in spirit but each is tuned to its own tool.
 
 ---
 
@@ -143,7 +139,6 @@ These skills come from several upstream sources. This repo bundles them for conv
 | `frontend-design` | [`claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) marketplace |
 | `web-design-guidelines`, `accessibility`, `marketing-psychology`, `prompt-engineer`, `extract-design-system`, `find-skills` | Community / `obie/agents` skill collection |
 | `create-skill` | Cursor (`~/.cursor/skills-cursor/`) |
-| `skill-creator` | Codex (Apache 2.0) |
 | `writing-skills` | [`superpowers`](https://github.com/obra/superpowers) plugin |
 | `caveman` | [`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman) |
 | `ai-component-metadata` | [`cris-achiardi/claude-skills`](https://github.com/cris-achiardi/claude-skills) by Christian Achiardi |

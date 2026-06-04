@@ -79,13 +79,7 @@ After generating, you may need to **post-process** with a pixelation pass (Photo
 
 ---
 
-## Hero 11 — `skill-creator` // THE CODEX FORGER (Codex)
-
-> **STYLE** + a 16-bit pixel art **blacksmith hero** in orange-red armor (#ff6633), similar pose to Hero 10 but with a different stance — holding a chisel and small tablet/codex book. Chest emblem: stylized book ▲. Helmet has dual horns. Background: transparent.
-
----
-
-## Hero 12 — `writing-skills` // THE GRAND FORGER (Claude Code)
+## Hero 11 — `writing-skills` // THE GRAND FORGER (Claude Code)
 
 > **STYLE** + a 16-bit pixel art **grand blacksmith hero** in gold/amber armor (#ffaa00) holding both a hammer and an open scroll mid-air. More elaborate armor than the other two forgers (cape, shoulder pads). Chest emblem: glowing book/scroll. Helmet has a small crown integrated. Background: transparent.
 
@@ -99,6 +93,6 @@ After generating, you may need to **post-process** with a pixelation pass (Photo
   ```
   figma-use, figma-generate-design, frontend-design, web-design-guidelines,
   accessibility, marketing-psychology, prompt-engineer, extract-design-system,
-  find-skills, create-skill, skill-creator, writing-skills
+  find-skills, create-skill, writing-skills
   ```
 - The landing falls back to CSS placeholder sprites when a PNG is missing, so you can ship the page now and replace sprites as you generate them.

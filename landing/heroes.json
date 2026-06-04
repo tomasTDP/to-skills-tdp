@@ -100,16 +100,6 @@
     "howIUse": "When I'm in Cursor and notice I'm repeating the same workflow more than twice, I use this to package it as a skill."
   },
   {
-    "id": "skill-creator",
-    "name": "SKILL-CREATOR",
-    "title": "the codex forger",
-    "type": "FORGER",
-    "color": "#ff6633",
-    "stats": { "power": 82, "craft": 87, "speed": 85, "rigor": 82 },
-    "description": "Guides creation of effective Codex skills. Includes scaffolding scripts, assets, and references the Cursor variant doesn't have.",
-    "howIUse": "Same idea as create-skill but for Codex. Use this when working in Codex CLI and want the extra scaffolding utilities."
-  },
-  {
     "id": "writing-skills",
     "name": "WRITING-SKILLS",
     "title": "the grand forger",
