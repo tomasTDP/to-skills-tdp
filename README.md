@@ -17,10 +17,10 @@ The 12 skills are organized into 5 buckets. Each bucket solves one problem in th
 | # | Bucket | Skills |
 |---|---|---|
 | 1 | **Figma ↔ code bridge** | `figma-generate-design`, `figma-use` |
-| 2 | **Build, review, a11y** | `frontend-design`, `web-design-guidelines`, `accessibility`, `caveman` |
+| 2 | **Build, review, a11y** | `frontend-design`, `web-design-guidelines`, `accessibility` |
 | 3 | **Decisions + AI prompts** | `marketing-psychology`, `prompt-engineer` |
 | 4 | **Design system** | `extract-design-system`, `ai-component-metadata` |
-| 5 | **Grow the toolkit** | `find-skills`, `create-skill`, `skill-creator`, `writing-skills` |
+| 5 | **Side quests** | `caveman`, `find-skills`, `create-skill`, `skill-creator`, `writing-skills` |
 
 ---
 
@@ -79,10 +79,6 @@ ln -s "$PWD/skills/<skill-name>" ~/.claude/skills/<skill-name>
 **What it does** — Audits and improves web accessibility following WCAG 2.2. Use for a11y audits, WCAG compliance, screen reader support, keyboard navigation.
 **How I use it** — Before shipping anything user-facing I run an a11y pass. Pairs well with `web-design-guidelines` — that one catches design issues, this one catches compliance issues. Two different lenses on the same code.
 
-#### `caveman`
-**What it does** — Ultra-compressed communication mode. Cuts token usage ~75% by speaking like caveman while keeping technical accuracy. Supports intensity levels: lite, full, ultra.
-**How I use it** — I turn it on while iterating to slash token usage in dense back-and-forth. Best for repetitive work where polished prose isn't the point. Toggle with `/caveman` or "caveman mode".
-
 ---
 
 ### 3. Decisions + AI prompts
@@ -109,7 +105,13 @@ ln -s "$PWD/skills/<skill-name>" ~/.claude/skills/<skill-name>
 
 ---
 
-### 5. Grow the toolkit
+### 5. Side quests
+
+Meta-skills and utilities that amplify the rest. Run any time, in parallel with the main flows.
+
+#### `caveman`
+**What it does** — Ultra-compressed communication mode. Cuts token usage ~75% by speaking like caveman while keeping technical accuracy. Supports intensity levels: lite, full, ultra.
+**How I use it** — I flip it on for iterative work — slashes token usage without losing accuracy. Best for repetitive back-and-forth where polished prose isn't the point. Toggle with `/caveman` or "caveman mode".
 
 #### `find-skills`
 **What it does** — Helps discover and install agent skills when you ask "is there a skill for X?" or "how do I do Y?".

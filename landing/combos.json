@@ -18,17 +18,16 @@
   {
     "id": "build-review-a11y",
     "name": "BUILD / REVIEW / A11Y",
-    "tagline": "Ship UI with taste, UX, accessibility, and tight prompts",
+    "tagline": "Ship UI with taste, UX, and accessibility",
     "color": "#ff00aa",
-    "heroIds": ["frontend-design", "web-design-guidelines", "accessibility", "caveman"],
+    "heroIds": ["frontend-design", "web-design-guidelines", "accessibility"],
     "flow": ["frontend-design", "web-design-guidelines", "accessibility"],
     "recipe": {
       "title": "Build a new page, end to end",
       "steps": [
         { "heroId": "frontend-design", "do": "Build the UI with taste — avoid the generic AI look" },
         { "heroId": "web-design-guidelines", "do": "Audit UX, typography, focus states, touch targets" },
-        { "heroId": "accessibility", "do": "Audit WCAG 2.2 compliance before shipping" },
-        { "heroId": "caveman", "do": "Turn on while iterating to slash token usage in dense back-and-forth" }
+        { "heroId": "accessibility", "do": "Audit WCAG 2.2 compliance before shipping" }
       ],
       "useWhen": "Shipping any user-facing page or component."
     }
@@ -66,21 +65,22 @@
     }
   },
   {
-    "id": "grow-toolkit",
-    "name": "GROW THE TOOLKIT",
-    "tagline": "Find and create more skills",
+    "id": "side-quests",
+    "name": "SIDE QUESTS",
+    "tagline": "Meta-skills and utilities that amplify the rest",
     "color": "#ff3344",
-    "heroIds": ["find-skills", "create-skill", "skill-creator", "writing-skills"],
-    "flow": ["find-skills", "create-skill"],
+    "heroIds": ["caveman", "find-skills", "create-skill", "skill-creator", "writing-skills"],
+    "flow": ["caveman", "find-skills", "create-skill"],
     "recipe": {
-      "title": "Don't reinvent — search first, then forge",
+      "title": "Stay efficient and keep growing the toolkit",
       "steps": [
-        { "heroId": "find-skills", "do": "Check if a skill already exists for what you need" },
+        { "heroId": "caveman", "do": "Flip on for iterative work — slashes token usage without losing accuracy" },
+        { "heroId": "find-skills", "do": "Before building anything custom, check if a skill already exists" },
         { "heroId": "create-skill", "do": "If you're on Cursor: package your workflow as a SKILL.md" },
         { "heroId": "skill-creator", "do": "If you're on Codex CLI: same idea, with scaffolding scripts" },
         { "heroId": "writing-skills", "do": "If you're on Claude Code or sharing the skill: most thorough variant, includes testing and verification" }
       ],
-      "useWhen": "You catch yourself repeating the same workflow more than twice."
+      "useWhen": "Any time, in parallel with the main flows."
     }
   }
 ]
