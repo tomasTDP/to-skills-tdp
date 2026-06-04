@@ -26,28 +26,27 @@ The 12 skills are organized into 5 buckets. Each bucket solves one problem in th
 
 ## Install
 
-Pick a skill and copy its folder into your tool's skills directory.
+Skills are mirrored to [`thedesignproject/agent-skills`](https://github.com/thedesignproject/agent-skills), the TDP community skill collection. Use the [`skills` CLI](https://github.com/vercel-labs/skills) to install — works with Claude Code, Codex, Cursor, and 60+ other agents.
 
-**Claude Code**
-```bash
-cp -R skills/<skill-name> ~/.claude/skills/
-```
-
-**Codex CLI**
-```bash
-cp -R skills/<skill-name> ~/.codex/skills/
-```
-
-**Cursor**
-```bash
-cp -R skills/<skill-name> ~/.cursor/skills-cursor/
-```
-
-If you'd rather keep them updated as this repo evolves, symlink instead:
+**Install a single skill** (replace `<skill-name>`):
 
 ```bash
-ln -s "$PWD/skills/<skill-name>" ~/.claude/skills/<skill-name>
+npx skills add thedesignproject/agent-skills -s <skill-name>
 ```
+
+**Install several at once:**
+
+```bash
+npx skills add thedesignproject/agent-skills -s figma-use -s frontend-design -s accessibility
+```
+
+**Interactive picker** (lists every skill in the repo, space-toggle to choose):
+
+```bash
+npx skills add thedesignproject/agent-skills
+```
+
+Add `-g` to install globally (`~/.claude/skills/` etc.) instead of the current project. See `npx skills add --help` for the full flag list, including symlink vs. copy modes.
 
 ---
 

@@ -210,7 +210,7 @@ function renderDetail(hero) {
   $('[data-field="description"]', node).textContent = hero.description;
   $('[data-field="howIUse"]', node).textContent = hero.howIUse;
 
-  const installCmd = `cp -R skills/${hero.id} ~/.claude/skills/`;
+  const installCmd = `npx skills add thedesignproject/agent-skills -s ${hero.id}`;
   $('[data-field="installCmd"]', node).textContent = installCmd;
 
   // best used with — other heroes in the same combo
